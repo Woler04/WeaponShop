@@ -16,5 +16,24 @@ namespace ZooMag.Controller
                 return db.Weapons.ToList();
             }
         }
+
+        public void Create(Weapon weapon)
+        {
+            using (WeaponsDBEntities db = new WeaponsDBEntities())
+            {
+                var weapons = db.Weapons.ToList();
+                if (weapons.First() == null)
+                {
+                    weapon.Id = 0;
+                }
+                else
+                {
+                    weapon.Id = weapons.Last().Id + 1;
+                }
+                db.Weapons.Add(weapon);
+                db.SaveChanges();
+
+            }
+        }
     }
 }

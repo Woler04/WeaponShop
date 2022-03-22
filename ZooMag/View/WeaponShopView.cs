@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZooMag.Controller;
+using ZooMag.Model;
 
 namespace ZooMag.View
 {
@@ -26,6 +27,19 @@ namespace ZooMag.View
             dgvWeapons.DataSource = controller.GetWeapons();
 
 
+        }
+        private void RefreshTable()
+        {
+            dgvWeapons.DataSource = controller.GetWeapons();
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            Weapon weapon = new Weapon();
+            weapon.Name = txtName.Text;
+            weapon.Attack = int.Parse(txtAttack.Text);
+            controller.Create(weapon);
+            RefreshTable();
         }
     }
 }
