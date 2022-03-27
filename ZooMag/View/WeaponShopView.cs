@@ -41,5 +41,26 @@ namespace ZooMag.View
             controller.Create(weapon);
             RefreshTable();
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = dgvWeapons.CurrentRow;
+            int id = int.Parse(row.Cells[0].Value.ToString());
+            Weapon weapon = new Weapon();
+            weapon.Id = id;
+            weapon.Name = txtName.Text;
+            weapon.Attack = int.Parse(txtAttack.Text);
+            controller.UpdateWeapon(weapon, id);
+            
+            RefreshTable();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = dgvWeapons.CurrentRow;
+            int id = int.Parse(row.Cells[0].Value.ToString());
+            controller.DeleteWeapon(id);
+            RefreshTable();
+        }
     }
 }

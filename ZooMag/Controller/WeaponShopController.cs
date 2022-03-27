@@ -35,5 +35,39 @@ namespace ZooMag.Controller
 
             }
         }
+
+        internal void UpdateWeapon(Weapon weapon, int id)
+        {
+            using (WeaponsDBEntities db = new WeaponsDBEntities())
+            {
+                Weapon weaponToUpdate = db.Weapons.Where(wea => wea.Id == id).FirstOrDefault();
+
+                if (weaponToUpdate != null)
+                {
+                    weaponToUpdate.Id = id;
+                    weaponToUpdate.Name = weapon.Name;
+                    weaponToUpdate.Attack = weapon.Attack;
+                }
+                else
+                {
+                    Create(weapon);
+                }
+                db.SaveChanges();
+            }
+        }
+
+        internal void DeleteWeapon(int id)
+        {
+            using (WeaponsDBEntities db = new WeaponsDBEntities())
+            {
+                Weapon weaponToDelete = db.Weapons.Where(wea => wea.Id == id).FirstOrDefault();
+
+                if (weaponToDelete != null)
+                {
+                    db.Weapons.Remove(weaponToDelete);
+                }
+                db.SaveChanges();
+            }
+        }
     }
 }
